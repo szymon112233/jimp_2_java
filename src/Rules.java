@@ -10,7 +10,7 @@ public class Rules extends Files
 
 
     @Override
-    void open()
+    public void open()
     {
         try
         {

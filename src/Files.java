@@ -30,7 +30,7 @@ public class Files {
         this.bufferedReader =null;
     }
 
-    void open()
+    public void open()
     {
         //Virtual method
     }

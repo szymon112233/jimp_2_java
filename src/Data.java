@@ -22,10 +22,25 @@ public class Data extends Files {
         values= null;
     }
 
+    public char getValue(String name)
+    {
+        if(values!=null)
+            return values.charAt(names.indexOf(name));
+        else
+            return '?';
+    }
 
+    public void setValue(String name, char newValue)
+    {
+        if(values!=null)
+        {
+            //Todo
+        }
+
+    }
 
     @Override
-    void open()
+    public void open()
     {
         try
         {
