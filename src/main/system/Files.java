@@ -1,4 +1,4 @@
-import java.io.*;
+package main.system;
 
 
 /**
@@ -8,8 +8,6 @@ public class Files {
 
     protected String fileName;
     protected String line;
-    protected FileReader fileReader;
-    protected BufferedReader bufferedReader;
 
 
 
@@ -19,20 +17,11 @@ public class Files {
     {
         this.fileName=fileName;
         this.line = null;
-        this.fileReader = null;
-        this.bufferedReader =null;
     }
     public Files()
     {
         this.fileName=null;
         this.line = null;
-        this.fileReader = null;
-        this.bufferedReader =null;
-    }
-
-    public void open()
-    {
-        //Virtual method
     }
 
 
