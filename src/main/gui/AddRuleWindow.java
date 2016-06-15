@@ -3,6 +3,7 @@ package main.gui;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import main.system.Rule;
 
 
 /**
@@ -30,17 +31,47 @@ public class AddRuleWindow {
         for (int i=0 ; i<window.data.getSize() ; i++)
         {
             comboBox3.addItem(window.data.getName(i));
+            comboBox3.addItem("!"+window.data.getName(i));
             comboBox4.addItem(window.data.getName(i));
+            comboBox4.addItem("!"+window.data.getName(i));
             comboBox5.addItem(window.data.getName(i));
+            comboBox5.addItem("!"+window.data.getName(i));
             comboBox6.addItem(window.data.getName(i));
+            comboBox6.addItem("!"+window.data.getName(i));
         }
 
 
-        button1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        button1.addActionListener(ActionListener-> {
+            Rule r = new Rule();
+            String tempString = comboBox1.getItemAt(comboBox1.getSelectedIndex()).toString();
+            r.addOperator( tempString.charAt(0) );
+            tempString = comboBox2.getItemAt(comboBox2.getSelectedIndex()).toString();
+            r.addOperator(tempString.charAt(0)  );
+            tempString = comboBox3.getItemAt(comboBox2.getSelectedIndex()).toString();
+            if(tempString.charAt(0)=='!')
+                r.addVariable(tempString,true);
+            else
+                r.addVariable(tempString,false);
+            tempString = comboBox4.getItemAt(comboBox2.getSelectedIndex()).toString();
+            if(tempString.charAt(0)=='!')
+                r.addVariable(tempString,true);
+            else
+                r.addVariable(tempString,false);
+            tempString = comboBox5.getItemAt(comboBox2.getSelectedIndex()).toString();
+            if(tempString.charAt(0)=='!')
+                r.addVariable(tempString,true);
+            else
+                r.addVariable(tempString,false);
+            tempString = comboBox6.getItemAt(comboBox2.getSelectedIndex()).toString();
+            if(tempString.charAt(0)=='!')
+                r.addVariable(tempString,true);
+            else
+                r.addVariable(tempString,false);
 
-            }
+            window.rules.addRule(r);
+            window.updateRulesView();
+
+
         });
     }
 }

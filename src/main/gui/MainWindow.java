@@ -1,6 +1,7 @@
 package main.gui;
 
 import main.system.Data;
+import main.system.Rules;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -29,12 +30,14 @@ public class MainWindow {
     private JRadioButton radioBackward;
 
     public Data data;
+    public Rules rules;
     private String currentFileName;
     final JFileChooser fileChooser;
 
     public MainWindow() {
 
         data = new Data();
+        rules = new Rules();
         currentFileName = null;
         fileChooser = new JFileChooser();
 
@@ -92,6 +95,12 @@ public class MainWindow {
         textData.setText("");
         for(int i= 0; i<data.getSize(); i++)
             textData.setText(textData.getText() + data.getName(i) + "=" + data.getValue(i)+"\n");
+    }
+    public void updateRulesView()
+    {
+        textRules.setText("");
+        for(int i= 0; i<rules.getSize(); i++)
+            textRules.setText(textRules.getText() + rules.getRule(i)+"\n");
     }
 
     private void save() throws IOException {

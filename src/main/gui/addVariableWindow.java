@@ -23,8 +23,17 @@ public class AddVariableWindow {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                window.data.addValue(variableNameTextField.getText(),variableValueTextField.getText().charAt(0));
-                window.updateDataView();
+
+                if (variableValueTextField.getText().equals("0") || variableValueTextField.getText().equals("1") || variableValueTextField.getText().equals("?"))
+                {
+                    window.data.addValue(variableNameTextField.getText(),variableValueTextField.getText().charAt(0));
+                    variableNameTextField.setText("");
+                    variableValueTextField.setText("");
+                    window.updateDataView();
+                }
+                else
+                    JOptionPane.showMessageDialog(null,"Variable value must be '1','0' or '?'");
+
 
 
             }
