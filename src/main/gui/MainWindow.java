@@ -1,6 +1,7 @@
 package main.gui;
 
 import main.system.Data;
+import main.system.Logic;
 import main.system.Rules;
 
 import javax.swing.*;
@@ -32,6 +33,7 @@ public class MainWindow {
 
     public Data data;
     public Rules rules;
+    public Logic logic;
     private String currentDataFileName;
     private String currentRulesFileName;
     final JFileChooser fileChooser;
@@ -40,6 +42,7 @@ public class MainWindow {
 
         data = new Data();
         rules = new Rules();
+        logic = new Logic(this);
         currentDataFileName = null;
         currentRulesFileName = null;
         fileChooser = new JFileChooser();
@@ -120,8 +123,13 @@ public class MainWindow {
         });
         chainButton.addActionListener(ActionListener -> {
 
+            tabbedPane1.setSelectedIndex(0);
             if(data.getSize()==0 || rules.getSize()==0)
                 writeInChaining("Add Data and Rules First !");
+            else
+            {
+                logic.forwardChain(comboBox1.getSelectedItem().toString());
+            }
 
         });
     }

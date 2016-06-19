@@ -43,23 +43,32 @@ public class AddRuleWindow {
 
         button1.addActionListener(ActionListener-> {
             Rule r = new Rule();
-            String tempString = comboBox1.getSelectedItem().toString();
+            String tempString = comboBox1.getItemAt(comboBox1.getSelectedIndex()).toString();
             r.addOperator( tempString.charAt(0) );
-
-            tempString = comboBox2.getSelectedItem().toString();
+            tempString = comboBox2.getItemAt(comboBox2.getSelectedIndex()).toString();
             r.addOperator(tempString.charAt(0)  );
 
-            tempString = comboBox4.getSelectedItem().toString();
-            r.addVariable(tempString);
+            tempString = comboBox4.getItemAt(comboBox4.getSelectedIndex()).toString();
+            if(tempString.charAt(0)=='!')
+                r.addVariable(tempString,true);
+            else
+                r.addVariable(tempString,false);
+            tempString = comboBox3.getItemAt(comboBox3.getSelectedIndex()).toString();
+            if(tempString.charAt(0)=='!')
+                r.addVariable(tempString,true);
+            else
+                r.addVariable(tempString,false);
 
-            tempString = comboBox3.getSelectedItem().toString();
-            r.addVariable(tempString);
-
-            tempString = comboBox5.getSelectedItem().toString();
-            r.addVariable(tempString);
-
-            tempString = comboBox6.getSelectedItem().toString();
-            r.addVariable(tempString);
+            tempString = comboBox5.getItemAt(comboBox5.getSelectedIndex()).toString();
+            if(tempString.charAt(0)=='!')
+                r.addVariable(tempString,true);
+            else
+                r.addVariable(tempString,false);
+            tempString = comboBox6.getItemAt(comboBox6.getSelectedIndex()).toString();
+            if(tempString.charAt(0)=='!')
+                r.addVariable(tempString,true);
+            else
+                r.addVariable(tempString,false);
 
             window.rules.addRule(r);
             window.updateRulesView();

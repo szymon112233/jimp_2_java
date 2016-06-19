@@ -10,17 +10,21 @@ public class Rule implements Serializable {
 
     private List<String> variables;
     private List<Character> operators;
+    private List<Boolean> negations;
     private boolean counted;
 
     public Rule()
     {
         variables = new ArrayList<String>();
         operators = new ArrayList<Character>();
+        negations = new ArrayList<Boolean>();
+
         counted = false;
     }
-    public void addVariable(String name)
+    public void addVariable(String name, Boolean negation)
     {
         variables.add(name);
+        negations.add(negation);
     }
 
     public void addOperator(Character operator)
@@ -38,6 +42,11 @@ public class Rule implements Serializable {
         return operators.get(number);
     }
 
+    public Boolean getNegation(int number)
+    {
+        return negations.get(number);
+    }
+
     public boolean isCounted()
     {
         if (counted)
@@ -46,4 +55,8 @@ public class Rule implements Serializable {
             return false;
     }
 
+    public void setCounted()
+    {
+        counted =true;
+    }
 }
