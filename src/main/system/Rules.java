@@ -25,12 +25,17 @@ public class Rules extends Files implements Serializable
         return ruleList.size();
     }
 
-    public String getRule(int number)
+    public String getRuleString(int number)
     {
         return ruleList.get(number).getVariable(0)+ruleList.get(number).getOperator(0).toString()
                 +ruleList.get(number).getVariable(1)+ruleList.get(number).getOperator(1).toString()
                 +ruleList.get(number).getVariable(2)+"="+ruleList.get(number).getVariable(3);
 
+    }
+
+    public Rule getRule(int number)
+    {
+        return ruleList.get(number);
     }
 
 

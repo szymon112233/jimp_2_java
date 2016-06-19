@@ -74,6 +74,14 @@ public class Data extends Files implements Serializable {
 
     }
 
+    public Boolean dataExists(String name)
+    {
+        if(dataNames.contains(name))
+            return true;
+        else
+            return false;
+    }
+
     public void serialize(OutputStream os) throws IOException {
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(os);
         objectOutputStream.writeObject(this);

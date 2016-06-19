@@ -26,16 +26,30 @@ public class AddVariableWindow {
 
                 if (variableValueTextField.getText().equals("0") || variableValueTextField.getText().equals("1") || variableValueTextField.getText().equals("?"))
                 {
-                    window.data.addValue(variableNameTextField.getText(),variableValueTextField.getText().charAt(0));
-                    variableNameTextField.setText("");
-                    variableValueTextField.setText("");
-                    window.updateDataView();
+                    if(!window.data.dataExists(variableNameTextField.getText()))
+                    {
+
+                            window.data.addValue(variableNameTextField.getText(),variableValueTextField.getText().charAt(0));
+                            variableNameTextField.setText("");
+                            variableValueTextField.setText("");
+                            window.updateDataView();
+                    }
+                    else if (window.data.getValue(variableNameTextField.getText()).toString()!=(variableValueTextField.getText()))
+                    {
+                        window.data.setValue(variableNameTextField.getText(),variableValueTextField.getText().charAt(0));
+                        variableNameTextField.setText("");
+                        variableValueTextField.setText("");
+                        window.updateDataView();
+                    }
+                    else
+                        JOptionPane.showMessageDialog(null,"Variable is already defined !");
                 }
                 else
                     JOptionPane.showMessageDialog(null,"Variable value must be '1','0' or '?'");
 
 
 
+                window.reloadVariables();
             }
         });
     }

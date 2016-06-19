@@ -1,26 +1,26 @@
 package main.system;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Created by Szymon on 2016-06-15.
  */
-public class Rule {
+public class Rule implements Serializable {
 
     private List<String> variables;
     private List<Character> operators;
-    private List<Boolean> negations;
+    private boolean counted;
 
     public Rule()
     {
         variables = new ArrayList<String>();
         operators = new ArrayList<Character>();
-        negations = new ArrayList<Boolean>();
+        counted = false;
     }
-    public void addVariable(String name, Boolean negation)
+    public void addVariable(String name)
     {
         variables.add(name);
-        negations.add(negation);
     }
 
     public void addOperator(Character operator)
@@ -30,15 +30,20 @@ public class Rule {
 
     public String getVariable(int number)
     {
-        if(negations.get(number))
-            return "!"+variables.get(number);
-        else
-            return variables.get(number);
+        return variables.get(number);
     }
 
     public Character getOperator(int number)
     {
         return operators.get(number);
+    }
+
+    public boolean isCounted()
+    {
+        if (counted)
+            return true;
+        else
+            return false;
     }
 
 }

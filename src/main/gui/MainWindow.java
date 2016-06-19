@@ -28,18 +28,22 @@ public class MainWindow {
     private JButton newRuleButton;
     private JRadioButton radioForward;
     private JRadioButton radioBackward;
+    private JComboBox comboBox1;
 
     public Data data;
     public Rules rules;
-    private String currentFileName;
+    private String currentDataFileName;
+    private String currentRulesFileName;
     final JFileChooser fileChooser;
 
     public MainWindow() {
 
         data = new Data();
         rules = new Rules();
-        currentFileName = null;
+        currentDataFileName = null;
+        currentRulesFileName = null;
         fileChooser = new JFileChooser();
+        reloadVariables();
 
         addDataButton.addActionListener(ActionEvent -> {
             JFrame buttonFrame = new JFrame("Add Variables");
@@ -52,7 +56,7 @@ public class MainWindow {
 
         saveDataButton.addActionListener(actionEvent -> {
             try {
-                save();
+                save('D');
             } catch(Exception e) {
                 JOptionPane.showMessageDialog(null, "Can't save file: " + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -61,16 +65,17 @@ public class MainWindow {
         loadDataButton.addActionListener(actionEvent -> {
             try {
                 if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                    currentFileName = fileChooser.getSelectedFile().getAbsolutePath();
+                    currentDataFileName = fileChooser.getSelectedFile().getAbsolutePath();
                 } else {
                     return;
                 }
 
-                FileInputStream is = new FileInputStream(currentFileName);
+                FileInputStream is = new FileInputStream(currentDataFileName);
                 data = Data.deserialize(is);
                 tabbedPane1.setSelectedIndex(1);
 
                 updateDataView();
+                reloadVariables();
             } catch(Exception e) {
                 JOptionPane.showMessageDialog(null, "Can't load file: " + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -89,6 +94,36 @@ public class MainWindow {
                 JOptionPane.showMessageDialog(null,"To Add Rules, add some Variables first !");
 
         });
+        saveRuleButton.addActionListener(ActionListener-> {
+            try {
+                save('R');
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(null, "Can't save file: " + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        loadRulesButton.addActionListener(ActionListener -> {
+            try {
+                if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    currentRulesFileName = fileChooser.getSelectedFile().getAbsolutePath();
+                } else {
+                    return;
+                }
+
+                FileInputStream is = new FileInputStream(currentRulesFileName);
+                rules = Rules.deserialize(is);
+                tabbedPane1.setSelectedIndex(2);
+
+                updateRulesView();
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(null, "Can't load file: " + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        chainButton.addActionListener(ActionListener -> {
+
+            if(data.getSize()==0 || rules.getSize()==0)
+                writeInChaining("Add Data and Rules First !");
+
+        });
     }
     public void updateDataView()
     {
@@ -100,19 +135,47 @@ public class MainWindow {
     {
         textRules.setText("");
         for(int i= 0; i<rules.getSize(); i++)
-            textRules.setText(textRules.getText() + rules.getRule(i)+"\n");
+            textRules.setText(textRules.getText() + rules.getRuleString(i)+"\n");
     }
 
-    private void save() throws IOException {
-        if (currentFileName == null) {
-            if(fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-                currentFileName = fileChooser.getSelectedFile().getAbsolutePath();
-            } else {
-                return;
+    private void save(char type) throws IOException {
+        if (type=='D')
+        {
+            if (currentDataFileName == null) {
+                if(fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    currentDataFileName = fileChooser.getSelectedFile().getAbsolutePath();
+                } else {
+                    return;
+                }
             }
-        }
 
-        FileOutputStream is = new FileOutputStream(currentFileName);
-        data.serialize(is);
+            FileOutputStream is = new FileOutputStream(currentDataFileName);
+            data.serialize(is);
+        }
+        else if (type=='R')
+        {
+            if (currentRulesFileName == null) {
+                if(fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    currentRulesFileName = fileChooser.getSelectedFile().getAbsolutePath();
+                } else {
+                    return;
+                }
+            }
+
+            FileOutputStream is = new FileOutputStream(currentRulesFileName);
+            rules.serialize(is);
+        }
+        else
+            return;
+    }
+    public void reloadVariables()
+    {
+        comboBox1.removeAllItems();
+        for (int i=0 ; i<data.getSize() ; i++)
+            comboBox1.addItem(data.getName(i));
+    }
+    public void writeInChaining(String text)
+    {
+        textChaining.setText(textChaining.getText()+"\n"+text);
     }
 }
