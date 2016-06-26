@@ -128,7 +128,10 @@ public class MainWindow {
                 writeInChaining("Add Data and Rules First !");
             else
             {
-                logic.forwardChain(comboBox1.getSelectedItem().toString());
+                if(radioForward.isSelected())
+                    logic.forwardChain(comboBox1.getSelectedItem().toString());
+                else
+                    logic.backwardChain(comboBox1.getSelectedItem().toString());
             }
 
         });
@@ -143,7 +146,7 @@ public class MainWindow {
     {
         textRules.setText("");
         for(int i= 0; i<rules.getSize(); i++)
-            textRules.setText(textRules.getText() + rules.getRuleString(i)+"\n");
+            textRules.setText(textRules.getText() + i + ". " +rules.getRuleString(i)+"\n");
     }
 
     private void save(char type) throws IOException {

@@ -37,6 +37,7 @@ public class Rule implements Serializable {
         return variables.get(number);
     }
 
+
     public Character getOperator(int number)
     {
         return operators.get(number);

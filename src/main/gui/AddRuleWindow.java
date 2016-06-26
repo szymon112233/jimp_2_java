@@ -50,23 +50,23 @@ public class AddRuleWindow {
 
             tempString = comboBox4.getItemAt(comboBox4.getSelectedIndex()).toString();
             if(tempString.charAt(0)=='!')
-                r.addVariable(tempString,true);
+                r.addVariable(tempString.substring(1),true);
             else
                 r.addVariable(tempString,false);
             tempString = comboBox3.getItemAt(comboBox3.getSelectedIndex()).toString();
             if(tempString.charAt(0)=='!')
-                r.addVariable(tempString,true);
+                r.addVariable(tempString.substring(1),true);
             else
                 r.addVariable(tempString,false);
 
             tempString = comboBox5.getItemAt(comboBox5.getSelectedIndex()).toString();
             if(tempString.charAt(0)=='!')
-                r.addVariable(tempString,true);
+                r.addVariable(tempString.substring(1),true);
             else
                 r.addVariable(tempString,false);
             tempString = comboBox6.getItemAt(comboBox6.getSelectedIndex()).toString();
             if(tempString.charAt(0)=='!')
-                r.addVariable(tempString,true);
+                r.addVariable(tempString.substring(1),true);
             else
                 r.addVariable(tempString,false);
 
